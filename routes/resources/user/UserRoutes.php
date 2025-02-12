@@ -8,9 +8,12 @@ use App\Http\Controllers\api\user\PostUserController;
 use App\Http\Controllers\api\user\UpdateUserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', GetAllUsersController::class);
-Route::get('{id}', GetUserByIdController::class);
-Route::get('email/{email}', GetUserByEmailController::class);
 Route::post('post-user', PostUserController::class);
-Route::put('update-user/{id}', UpdateUserController::class);
-Route::delete('delete-user/{id}', DeleteUserController::class);
+
+Route::middleware('auth:api')->group(function () {
+    Route::get('/', GetAllUsersController::class);
+    Route::get('{id}', GetUserByIdController::class);
+    Route::get('email/{email}', GetUserByEmailController::class);
+    Route::put('update-user/{id}', UpdateUserController::class);
+    Route::delete('delete-user/{id}', DeleteUserController::class);
+});

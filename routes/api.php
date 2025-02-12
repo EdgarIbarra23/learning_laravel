@@ -13,3 +13,6 @@ Route::prefix('users')->as('users')->group(
 Route::prefix('tasks')->as('tasks')->group(
     base_path('routes/resources/task/TaskRoutes.php'),
 );
+Route::prefix('auth')->as('auth')->group(
+    base_path('routes/resources/auth/AuthRoutes.php'),
+);
