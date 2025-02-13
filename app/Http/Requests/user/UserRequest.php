@@ -27,6 +27,7 @@ class UserRequest extends FormRequest
             'last_name'         => ['required', 'string'],
             'email'             => ['required', 'string', Rule::unique('users', 'email')->ignore($this->id)],
             'password'          => ['required', 'string'],
+            'role'              => ['required', 'string', 'exists:roles,name']
         ];
     }
 
@@ -36,7 +37,8 @@ class UserRequest extends FormRequest
             'name'              => 'nombre',
             'last_name'         => 'apellido',
             'email'             => 'correo electronico',
-            'password'          => 'contraseña'
+            'password'          => 'contraseña',
+            'role'              => 'rol',
         ];
     }
 
@@ -55,6 +57,10 @@ class UserRequest extends FormRequest
 
             'password.required'  => 'El :attribute es requerido.',
             'password.string'    => 'El :attribute debe ser un texto.',
+
+            'role.required'      => 'El :attribute es requerido.',
+            'role.string'        => 'El :attribute debe ser un texto.',
+            'role.exists'        => 'El :attribute seleccionado no es válido.',
         ];
     }
 }

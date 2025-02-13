@@ -16,3 +16,6 @@ Route::prefix('tasks')->as('tasks')->group(
 Route::prefix('auth')->as('auth')->group(
     base_path('routes/resources/auth/AuthRoutes.php'),
 );
+Route::prefix('roles')->as('roles')->group(
+    base_path('routes/resources/role/RoleRoutes.php'),
+);

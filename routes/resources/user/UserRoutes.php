@@ -11,9 +11,11 @@ use Illuminate\Support\Facades\Route;
 Route::post('post-user', PostUserController::class);
 
 Route::middleware('auth:api')->group(function () {
-    Route::get('/', GetAllUsersController::class);
-    Route::get('{id}', GetUserByIdController::class);
-    Route::get('email/{email}', GetUserByEmailController::class);
-    Route::put('update-user/{id}', UpdateUserController::class);
-    Route::delete('delete-user/{id}', DeleteUserController::class);
+    Route::middleware('role:admin')->group(function () {
+        Route::get('/', GetAllUsersController::class);
+        Route::get('{id}', GetUserByIdController::class);
+        Route::get('email/{email}', GetUserByEmailController::class);
+        Route::put('update-user/{id}', UpdateUserController::class);
+        Route::delete('delete-user/{id}', DeleteUserController::class);
+    });
 });

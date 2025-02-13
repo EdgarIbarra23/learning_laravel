@@ -10,10 +10,12 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::middleware('auth:api')->group(function () {
-    Route::get('/', GetAllTasksController::class);
-    Route::get('{id}', GetTaskByIdController::class);
-    Route::get('/user/{id}', GetTaskByUserController::class);
-    Route::post('post-task', PostTaskController::class);
-    Route::put('update-task/{id}',  UpdateTaskController::class);
-    Route::delete('delete-task/{id}', DeleteTaskController::class);
+    Route::middleware('role:admin|basico')->group(function () {
+        Route::get('/', GetAllTasksController::class);
+        Route::get('{id}', GetTaskByIdController::class);
+        Route::get('/user/{id}', GetTaskByUserController::class);
+        Route::post('post-task', PostTaskController::class);
+        Route::put('update-task/{id}',  UpdateTaskController::class);
+        Route::delete('delete-task/{id}', DeleteTaskController::class);
+    });
 });

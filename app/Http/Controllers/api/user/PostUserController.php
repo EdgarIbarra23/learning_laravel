@@ -20,6 +20,7 @@ class PostUserController extends Controller
     {
         $data = $request->validated();
         $user = $this->userRepository->create($data);
+        $user->assignRole($data['role']);
         $dataUser = new UsersResource($user);
         return ApiResponse::Create($dataUser);
     }

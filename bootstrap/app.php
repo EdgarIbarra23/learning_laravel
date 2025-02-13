@@ -1,12 +1,15 @@
 <?php
 
+use App\Exceptions\ForbiddenException;
 use App\Exceptions\UnauthorizedException as ExceptionsUnauthorized;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\JsonResponse;
+use Spatie\Permission\Exceptions\UnauthorizedException;
 use Spatie\Permission\Middleware\RoleMiddleware;
+
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -23,5 +26,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (AuthenticationException $e, $request): JsonResponse {
             throw new ExceptionsUnauthorized('No ha iniciado sesión. Por favor, inicie sesión para continuar.');
+        });
+
+        $exceptions->render(function (UnauthorizedException $e, $request): JsonResponse {
+            throw new ForbiddenException('Acceso denegado: no tienes los permisos adecuados.');
         });
     })->create();
